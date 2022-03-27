@@ -1,0 +1,18 @@
+* { font-family: sans-serif !important;}
+
+.my-table{
+    max-width: 75%;
+    margin: auto;
+    background-color: aliceblue ;
+    border: solid black 1px;
+}
+
+.main-header{
+    margin: 7%;
+}
+
+.delete-button{
+    background-color: black;
+    color: aliceblue;
+    margin-right: 30%;
+}
