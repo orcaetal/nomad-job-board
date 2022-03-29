@@ -1,16 +1,53 @@
-//Hello, please take a moment to view the README
+const express = require("express");
+const session = require("express-session");
+const jwt = require("jsonwebtoken");
 
-const express = require('express');
-const cors = require('cors');
+require("dotenv").config();
+require("./config/mongoose.config");
+
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 
-app.use(cors());
-app.use(express.json());                           /* allows JSON Objects to be posted */
-app.use(express.urlencoded({ extended: true }));   /* allows JSON Objects with strings and arrays*/
-require('./config/mongoose.config');
-require('./routes/job.routes')(app);
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
-app.listen(8000, () => {
-    console.log("Listening at Port 8000")
-})
+const FileStore = require("session-file-store")(session);
 
+var fileStoreOptions = {};
+
+app.use(cookieParser());
+
+app.use(
+  session({
+    store: new FileStore(fileStoreOptions),
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60000 },
+  })
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const protected = async (req, res, next) => {
+  const token = req.cookies.usertoken;
+  if (token == null) {
+    return next();
+  }
+  let decodedToken;
+  try {
+    decodedToken = await jwt.verify(token, process.env.SECRET_KEY);
+  } catch (error) {
+    console.log("error decoding token");
+    res.status(400).json(error);
+  }
+  req.session.userId = decodedToken.id;
+  next();
+};
+
+app.use(protected);
+require("./routes/job.routes")(app);
+app.listen(process.env.PORT, () =>
+  console.log("express is running on", process.env.PORT)
+);
