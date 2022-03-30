@@ -8,18 +8,16 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const onLogin = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/login", { email, passWord: password })
-      .then(
-        (res) => {
-          console.log("Login succeeded", res);
-          setUser(res.data);
-          navigate("/profile");
-        },
-        (err) => {
-          console.log("Login failed", err);
-        }
-      );
+    axios.post("/api/login", { email, passWord: password }).then(
+      (res) => {
+        console.log("Login succeeded", res);
+        setUser(res.data);
+        navigate("/profile");
+      },
+      (err) => {
+        console.log("Login failed", err);
+      }
+    );
   };
   return (
     <form onSubmit={onLogin}>

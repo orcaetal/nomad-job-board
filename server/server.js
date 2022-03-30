@@ -11,13 +11,10 @@ const app = express();
 
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
-const FileStore = require("session-file-store")(session);
-
 app.use(cookieParser());
 
 app.use(
   session({
-    // store: new FileStore({}),
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
@@ -30,7 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const protected = async (req, res, next) => {
   const token = req.cookies.usertoken;
-  console.log("into protected", token, req.session.userId);
   if (token == null) {
     return next();
   }

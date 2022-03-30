@@ -5,12 +5,12 @@ import { Link, navigate } from "@reach/router";
 import { FaStar } from "react-icons/fa";
 
 const Home = (props) => {
-  const { user } = props;
+  const { user, setUser } = props;
   const [allJobs, setAllJobs] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/job")
+      .get("/api/job")
       .then((res) => {
         console.log(res.data);
         setAllJobs(res.data);
@@ -23,7 +23,7 @@ const Home = (props) => {
   const deleteClick = (event, id) => {
     console.log(id);
     axios
-      .delete("http://localhost:8000/api/job/delete/" + id)
+      .delete("/api/job/delete/" + id)
       .then((res) => {
         console.log(res.data);
         setAllJobs(allJobs.filter((job) => job._id !== id));
@@ -34,10 +34,11 @@ const Home = (props) => {
   };
 
   const logout = () => {
-    axios.post("http://localhost:8000/api/logout").then(
+    axios.post("/api/logout").then(
       (res) => {
         console.log("Logout succeeded", res);
         navigate("/");
+        setUser(null);
       },
       (err) => {
         console.log("Logout failed", err);

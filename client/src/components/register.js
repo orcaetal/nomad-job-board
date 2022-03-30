@@ -13,7 +13,7 @@ const Register = (props) => {
   const register = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/register", {
+      .post("/api/register", {
         firstName,
         lastName,
         email,

@@ -73,5 +73,16 @@ module.exports.login = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
   res.clearCookie("usertoken");
+  req.session.destroy();
   res.json({ msg: "logout successful" });
+};
+
+module.exports.getCurrentUser = async (req, res) => {
+  const { userId } = req.session;
+  if (userId == null) {
+    res.json({ user: null });
+  } else {
+    const user = await User.findOne({ _id: userId });
+    res.json({ user });
+  }
 };
