@@ -9,13 +9,15 @@ module.exports.registerUser = async (req, res) => {
   try {
     exsitingUser = await User.findOne({ email: body.email });
     if (exsitingUser) {
-      res
-        .status(400)
-        .json({ errorMessage: "user already exists with that email" });
+      res.status(400).json({
+        errors: { email: { message: "user already exists with that email" } },
+      });
       return;
     }
     if (body.passWord !== body.confirmPassword) {
-      res.status(400).json({ errorMessage: "passwords must match" });
+      res.status(400).json({
+        errors: { confirmPassword: { message: "passwords must match" } },
+      });
       return;
     }
     const hash = await bcrypt.hash(body.passWord, 10);
@@ -45,9 +47,8 @@ module.exports.login = async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(body.passWord, findUser.passWord);
-    console.log("password:", body.passWord, findUser.passWord);
     if (!isMatch) {
-      res.status(401).json({ error: "incorrect email and password" });
+      res.status(400).json({ error: "incorrect email and password" });
       return;
     }
 
@@ -68,4 +69,9 @@ module.exports.login = async (req, res) => {
     res.status(500).json(error);
     return;
   }
+};
+
+module.exports.logout = async (req, res) => {
+  res.clearCookie("usertoken");
+  res.json({ msg: "logout successful" });
 };
