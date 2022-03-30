@@ -30,7 +30,7 @@ const TableRow = (job, deleteClick) => {
                 X
             </button>
             </td>
-            <td>{job.job.datePosted}</td>
+            <td>{job.job.datePosted.slice(6,10)}</td>
             <td onClick={() => setModalShow(true)}>{job.job.jobTitle}</td>
             <td>{job.job.region}</td>
             <td>{job.job.city}</td>
