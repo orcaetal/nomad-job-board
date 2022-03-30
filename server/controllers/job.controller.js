@@ -46,7 +46,7 @@ module.exports.saveJob = async (req, res) => {
       return;
     }
     const user = await User.findOne({ _id: req.session.userId });
-    user.savedJobs.push(req.params);
+    user.savedJobs.push(req.params.jobId);
     await user.save();
     res.json(user);
   } catch (err) {
