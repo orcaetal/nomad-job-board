@@ -1,18 +1,68 @@
-* { font-family: sans-serif !important;}
+* { font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;}
 
 .my-table{
-    max-width: 75%;
+    max-width: 90%;
     margin: auto;
-    background-color: aliceblue ;
-    border: solid black 1px;
+    background-color: floralwhite;
+    border: solid black 1px !important;
 }
 
+.page-wrap{
+    background-color: rgb(34, 34, 34);
+    padding-bottom: 10%;
+}
+
+.head-wrap{
+    display: block;
+    width: 99%;
+    margin-right: auto;
+    margin-left: auto;
+}
 .main-header{
-    margin: 7%;
+    padding-top: 2%;
+    padding-bottom: 15%;
+    padding-right: 40%;
+    background-repeat: no-repeat;
+    margin: auto;
+    font-size: 50px;
+    color: floralwhite;
 }
 
 .delete-button{
     background-color: black;
-    color: aliceblue;
+    color: floralwhite;
     margin-right: 30%;
+}
+
+.search-wrap{
+    text-align: center;
+    margin: 3%;
+    padding: 1%;
+    border: solid black 2px;
+    background-color: floralwhite;
+}
+
+.form-head{
+    margin-bottom: 3%;;
+}
+.inner-form{
+    width: 70%;
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.user-wrap{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+    color: floralwhite !important;
+    padding: 5%;
+}
+
+.login-wrap{
+    color: floralwhite;
+    text-align: right;
+    padding: 5%
 }

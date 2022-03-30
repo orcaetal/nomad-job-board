@@ -38,6 +38,7 @@ module.exports.deleteJob = (request, response) => {
     .then((deleteConfirmation) => response.json(deleteConfirmation))
     .catch((err) => response.json(err));
 };
+
 module.exports.saveJob = async (req, res) => {
   try {
     if (req.session.userId == null) {
@@ -45,7 +46,7 @@ module.exports.saveJob = async (req, res) => {
       return;
     }
     const user = await User.findOne({ _id: req.session.userId });
-    user.savedJobs.push(req.params.jobId);
+    user.savedJobs.push(req.params);
     await user.save();
     res.json(user);
   } catch (err) {

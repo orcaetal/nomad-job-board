@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Link, navigate } from "@reach/router";
-
+import { FaStar } from "react-icons/fa";
 const Profile = (props) => {
   const { user, setUser } = props;
   const logout = () => {
@@ -25,6 +25,7 @@ const Profile = (props) => {
         Logout
       </button>
       <Link to="/">Home</Link>
+      
     </div>
   );
 };
