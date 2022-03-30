@@ -3,6 +3,7 @@ import axios from "axios";
 import "./master.css";
 import { Link, navigate } from "@reach/router";
 import { FaStar } from "react-icons/fa";
+import TableRow from './TableRow';
 
 const Home = (props) => {
   const { user, setUser } = props;
@@ -67,8 +68,8 @@ const Home = (props) => {
     //further filter by keyword search
     if (e.target.keyword.value !== ''){
         //search title and description
-        filteredJobs = filteredJobs.filter(job => job.jobDesc.search(e.target.keyword.value) !== -1 
-                                                || job.jobTitle.search(e.target.keyword.value) !== -1)
+        filteredJobs = filteredJobs.filter(job => job.jobDesc.toLowerCase().search(e.target.keyword.value.toLowerCase()) !== -1 
+                                                || job.jobTitle.toLowerCase().search(e.target.keyword.value.toLowerCase()) !== -1)
     }
     
     //update state
@@ -76,18 +77,7 @@ const Home = (props) => {
     
   }
 
-  const favorite = (e, jobId) => {
-    console.log('clicked')
-    axios.post("/api/save_job/"+jobId)
-    .then(
-      (res) => {
-        console.log("save succeeded", res);
-      },
-      (err) => {
-        console.log("save failed", err);
-      }
-    );
-  }
+  
   return (
     <>
 
@@ -149,18 +139,20 @@ const Home = (props) => {
                     </thead>
                     <tbody>
                         {
-                            displayJobs.map((job,idx)=>{
-                                return(
-                                    <tr key={idx}>
-                                        <td><button className='delete-button' onClick={(e)=>deleteClick(e,job._id)}>X</button></td>
-                                        <td>{job.datePosted.slice(6,10)}</td>
-                                        <td>{job.jobTitle}</td>
-                                        <td>{job.region}</td>
-                                        <td>{job.city}</td>
-                                        <td><FaStar onClick={e => favorite(e,job._id)}/></td>
-                                    </tr>
-                                )
-                            })
+                            displayJobs.map((job,idx)=>
+                                
+                                <TableRow job={job} key={idx}/>
+                                    // <tr key={idx}>
+                                      
+                                    //     {/* <td><button className='delete-button' onClick={(e)=>deleteClick(e,job._id)}>X</button></td>
+                                    //     <td>{job.datePosted.slice(6,10)}</td>
+                                    //     <td>{job.jobTitle}</td>
+                                    //     <td>{job.region}</td>
+                                    //     <td>{job.city}</td>
+                                    //     <td><FaStar onClick={e => favorite(e,job._id)}/></td> */}
+                                    // </tr>
+                                
+                            )
                         }
                     </tbody>
                 </table>
