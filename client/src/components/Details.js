@@ -15,7 +15,7 @@ const Details = (props) => {
         </Modal.Header>
         <Modal.Body>
             <h4>Job Description</h4>
-            <p>{props.job.jobDesc}</p>
+            <p style={{ whiteSpace: "pre-wrap" }}>{props.job.jobDesc}</p>
         </Modal.Body>
         <Modal.Footer>
             <Button onClick={props.onClose}>Close</Button>

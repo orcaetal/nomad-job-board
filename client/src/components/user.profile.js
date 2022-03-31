@@ -36,13 +36,17 @@ const Profile = (props) => {
     return null;
   }
   return (
-    <div>
-      Welcome {user.firstName}
-      <button className="btn btn-primary" onClick={logout}>
-        Logout
-      </button>
-      <Link to="/">Home</Link>
-      <div>
+    <div className="user-wrap2">
+      <div className="profile-head">
+        <p>Welcome {user.firstName}</p>
+        <div>
+          <button className="btn btn-primary" onClick={logout}>
+            Logout
+          </button>
+          <Link to="/">Home</Link>
+        </div>
+      </div>
+      <div className="user-info">
         <p>First Name: {user.firstName}</p>
         <p>Last Name: {user.lastName}</p>
         <p>Email: {user.email}</p>
