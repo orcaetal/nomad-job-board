@@ -24,7 +24,7 @@ const Register = (props) => {
         (res) => {
           console.log("Login succeeded", res);
           setUser(res.data);
-          navigate("/profile");
+          navigate("/login");
         },
         (err) => {
           debugger;
