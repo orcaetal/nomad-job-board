@@ -48,7 +48,6 @@ module.exports.saveJob = async (req, res) => {
     const user = await User.findOne({ _id: req.session.userId });
     user.savedJobs.push(req.params.jobId);
     await user.save();
-    //res.json(user);
     const user2 = await User.findOne({ _id: req.session.userId }).populate(
       "savedJobs"
     );
@@ -69,7 +68,10 @@ module.exports.unSaveJob = async (req, res) => {
       return !job.equals(req.params.jobId);
     });
     await user.save();
-    res.json(user);
+    const user2 = await User.findOne({ _id: req.session.userId }).populate(
+      "savedJobs"
+    );
+    res.json(user2);
   } catch (err) {
     res.status(500).json({ message: "Something went wrong", error: err });
   }

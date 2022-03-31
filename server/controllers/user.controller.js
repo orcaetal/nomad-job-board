@@ -82,7 +82,7 @@ module.exports.getCurrentUser = async (req, res) => {
   if (userId == null) {
     res.json({ user: null });
   } else {
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId }).populate('savedJobs');
     res.json({ user });
   }
 };
