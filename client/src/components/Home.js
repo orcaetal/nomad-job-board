@@ -84,11 +84,11 @@ const Home = (props) => {
 
   return (
     <>
-      <div className="page-wrap">
+      <div className="page-wrap"><img src="/road_banner_2.jpg"  alt="Responsive image"></img>
         <div className="head-wrap">
+          
           <h1
             className="main-header"
-            style={{ backgroundImage: "url(/road_banner_2.jpg)" }}
           >
             <strong>Nomad Job Board</strong>
           </h1>
