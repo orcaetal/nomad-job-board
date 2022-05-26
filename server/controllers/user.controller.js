@@ -40,7 +40,9 @@ module.exports.login = async (req, res) => {
     return;
   }
   try {
-    const findUser = await User.findOne({ email: body.email });
+    const findUser = await User.findOne({ email: body.email }).populate(
+      "savedJobs"
+    );
     if (findUser == null) {
       res.status(400).json({ error: "cannot find  user with that email" });
       return;
@@ -82,7 +84,7 @@ module.exports.getCurrentUser = async (req, res) => {
   if (userId == null) {
     res.json({ user: null });
   } else {
-    const user = await User.findOne({ _id: userId }).populate('savedJobs');
+    const user = await User.findOne({ _id: userId }).populate("savedJobs");
     res.json({ user });
   }
 };
